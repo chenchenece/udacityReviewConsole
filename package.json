@@ -1,0 +1,34 @@
+{
+  "name": "node-starter-project",
+  "version": "1.0.0",
+  "description": "A starter project for node applications with a few basic tasks defined.",
+  "main": "src/app.js",
+  "author": "Kunal Bhuwalka",
+  "license": "MIT",
+  "description": "README v0.0 / 17 FEBRUARY 2017",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-start": "node_modules/.bin/gulp dev-serve",
+    "nodemon-start": "node_modules/.bin/nodemon start",
+    "start": "node src/app.js"
+  },
+  "keywords": [
+    "starter"
+  ],
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-copy": "^1.0.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.0.1",
+    "gulp-util": "^3.0.8"
+  },
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "compression": "^1.6.2",
+    "express": "^4.14.1"
+  }
+}
