@@ -1,6 +1,5 @@
 'use strict';
 
-var https = require('https');
 var express = require('express');
 var router = express.Router();
 var request = require('request');
@@ -65,10 +64,15 @@ function getRequest(requestId, callback){
 
 function getNew(callback){
   var data = '{"projects":[{"project_id":52,"language":"en-us"}]}';
+
+  var postHeaders = header;
+  postHeaders['Content-Type'] = 'application/json';
+  postHeaders['Content-Length'] = Buffer.byteLength(data);
+
   var options = {
     url: 'https://review-api.udacity.com/api/v1/submission_requests/',
     method: 'POST',
-    headers: header,
+    headers: postHeaders,
     body: data
   };
 
