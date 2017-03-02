@@ -12,35 +12,47 @@ var header = {
 };
 
 router.get('/refresh', function(req, res){
+  console.log("Refreshing submission request...");
   var query = req.query;
   refreshProject(query.requestId, function(data){
+    console.log("Refreshing submission request: Complete\n");
     console.dir(data);
+    console.log("\n\n");
     res.send(data);
   });
 });
 
 router.get('/position', function(req,res){
+  console.log("Updating position...");
   var query = req.query;
   getPosition(query.position, function(data){
+    console.log("Updating position: Complete\n");
     console.dir(data);
+    console.log("\n\n");
     res.send(data);
   })
 });
 
 router.get('/new', function(req,res){
+  console.log("Creating new request...");
   getNew(function(data){
+    console.log("Creating new request: Complete\n");
     console.dir(data);
+    console.log("\n\n");
     res.send(data);
   })
 });
 
 router.get('/request', function(req, res){
+  console.log("Updating status of submission request...");
   var query = req.query;
   getRequest(query.requestId, function(data){
+    console.log("Updating status of submission request: Complete\n");
     console.dir(data);
+    console.log("\n\n");
     res.send(data);
   })
-})
+});
 
 function getRequest(requestId, callback){
   var options = {
