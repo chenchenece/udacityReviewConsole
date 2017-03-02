@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 var browserSync = require('browser-sync').create();
 var sourcemaps = require('gulp-sourcemaps');
 
-gulp.task("dev-serve", function(){
+gulp.task("dev-serve",['watchFiles'], function(){
 
   browserSync.init({
       server: {
@@ -20,10 +20,12 @@ gulp.task("dev-serve", function(){
       }
   });
 
+});
+
+gulp.task('watchFiles', function(){
   gulp.watch(['src/assets/css/**'], ['minifyStyles']);
   gulp.watch(['src/assets/js/**'], ['afterMinifyScripts']);
-
-})
+});
 
 gulp.task("build", ['cleanBuild'], function(done){
   gulp.start(['copyImages','minifyStyles', 'minifyScripts']);

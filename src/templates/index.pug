@@ -1,0 +1,35 @@
+doctype html
+html(lang='en')
+  head
+    include partials/_head.pug
+    include partials/_stylesheets.pug
+  body.indigo.lighten-5
+    main.container
+      .row
+        .col.s12.m6.offset-m3
+          .card.white.darken-1
+            #notification_bar.blue.darken-2.white-text
+              span New projects available
+              i.right.material-icons close
+            .card-content
+              span.card-title
+                b Current Request
+              h6
+                | Last updated:
+                span#last_updated
+              br
+              p
+                b Id:
+                span(style='display: inline-block;')
+                  input#request_id
+              p
+                b Status:
+                span#request_status
+              p
+                b Position:
+                span#request_position
+            .card-action
+              a#request_refresh.waves-effect.waves-light.blue-text(href='#') Refresh
+      a#new_request.btn-floating.btn-large.waves-effect.waves-light.blue.darken-2
+        i.material-icons add
+    include partials/_scripts.pug

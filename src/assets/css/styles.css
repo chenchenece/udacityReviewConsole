@@ -1,0 +1,29 @@
+#new_request{
+  position: fixed;
+  margin: 16px;
+  bottom: 0;
+  right: 0;
+}
+
+#request_id{
+  border: none;
+  box-shadow:none;
+  margin-bottom: 0;
+  margin-left: 8px;
+  padding: 0;
+  height: 1rem;
+}
+
+#request_id:focus{
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+#notification_bar{
+  padding: 10px 20px;
+  overflow: auto;
+  display: none;
+}
+
+#notification_bar i{
+  cursor: pointer;
+}

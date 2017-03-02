@@ -1,15 +1,14 @@
 {
   "name": "node-starter-project",
   "version": "1.0.0",
-  "description": "A starter project for node applications with a few basic tasks defined.",
+  "description": "README v0.0 / 17 FEBRUARY 2017",
   "main": "src/app.js",
   "author": "Kunal Bhuwalka",
   "license": "MIT",
-  "description": "README v0.0 / 17 FEBRUARY 2017",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-start": "node_modules/.bin/gulp dev-serve",
-    "nodemon-start": "node_modules/.bin/nodemon start",
+    "nodemon-start": "node_modules/.bin/nodemon",
     "start": "node src/app.js"
   },
   "keywords": [
@@ -29,6 +28,7 @@
   "dependencies": {
     "body-parser": "^1.16.1",
     "compression": "^1.6.2",
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "pug": "^2.0.0-beta11"
   }
 }
