@@ -12,8 +12,8 @@ var refreshTimer;
  */
 
 $(function(){
-  $("#request_refresh").on("click", refreshRequest);
-  $("#new_request").on("click", requestNew);
+  $("#request_refresh").on("click", refreshSubmissionRequest);
+  $("#new_request").on("click", newSubmissionRequest);
   $("#notification_bar i").on("click", function(){
     $("#notification_bar").slideUp('fast');
   })
@@ -27,7 +27,7 @@ $(function(){
  */
 
 function setUpdateTimer(){
-  updateTimer = setInterval(updateRequest, updateInterval);
+  updateTimer = setInterval(updateSubmissionRequest, updateInterval);
 }
 
 function removeUpdateTimer(){
@@ -45,7 +45,7 @@ function resetUpdateTimer(){
  */
 
  function setRefreshTimer(){
-   refreshTimer = setInterval(refreshRequest, refreshInterval);
+   refreshTimer = setInterval(refreshSubmissionRequest, refreshInterval);
  }
 
  function removeRefreshTimer(){
@@ -60,8 +60,23 @@ function resetUpdateTimer(){
 /*
  *Get an update on the submission request
  */
-function updateRequest(){
+function updateSubmissionRequest(){
   console.log("Updating Submission Request.");
+
+  var onUpdateRequest = function(data){
+    data = $.parseJSON(data);
+    data.updated_at = new Date();
+    update(data);
+    if(data.status != 'available'){
+      if(data.status == 'fulfilled'){
+        $("#notification_bar").slideDown('fast');
+      }
+      requestNew();
+    }  else {
+      resetUpdateTimer();
+      positionOfSubmissionRequest();
+    }
+  };
 
   var id = $("#request_id").val();
   $.ajax({
@@ -72,28 +87,29 @@ function updateRequest(){
   });
 }
 
-function onUpdateRequest(data){
-  data = $.parseJSON(data);
-  data.updated_at = new Date();
-  update(data);
-  if(data.status != 'available'){
-    if(data.status == 'fulfilled'){
-      $("#notification_bar").slideDown('fast');
-    }
-    requestNew();
-  }  else {
-    resetUpdateTimer();
-    requestPosition();
-  }
-}
 
 /*
  *Refresh the submission request so that it does not close
  */
-function refreshRequest(){
+function refreshSubmissionRequest(){
   console.log("Refreshing Submission Request.");
-
   var id = $("#request_id").val();
+
+  var onRefreshRequest = function(data){
+    data = $.parseJSON(data);
+    update(data);
+    if(data.status != 'available'){
+      if(data.status == 'fulfilled'){
+        $("#notification_bar").slideDown('fast');
+      }
+      requestNew();
+    } else {
+      resetRefreshTimer();
+      resetUpdateTimer();
+      positionOfSubmissionRequest();
+    }
+  };
+
   $.ajax({
     type: "GET",
     url: 'ajax/refresh',
@@ -102,63 +118,48 @@ function refreshRequest(){
   });
 }
 
-function onRefreshRequest(data){
-  data = $.parseJSON(data);
-  update(data);
-  if(data.status != 'available'){
-    if(data.status == 'fulfilled'){
-      $("#notification_bar").slideDown('fast');
-    }
-    requestNew();
-  }  else {
-    resetRefreshTimer();
-    resetUpdateTimer();
-    requestPosition();
-  }
-}
-
 /*
  *Get the position of the current submission request
  */
 
-function requestPosition(){
+function positionOfSubmissionRequest(){
   var id = $("#request_id").val();
+
+  var onPosition = function(data){
+    data = $.parseJSON(data);
+    console.log(data);
+    $('#request_position').html("\t"+data[0].position);
+  };
+
   $.ajax({
     type: "GET",
     url: 'ajax/position',
-    data: {position: id},
+    data: {requestId: id},
     success: onPosition,
   });
-}
-
-
-function onPosition(data){
-  data = $.parseJSON(data);
-  console.log(data);
-  $('#request_position').html("\t"+data[0].position);
 }
 
 /*
  *Create a new submission request
  */
 
-function requestNew(){
+function newSubmissionRequest(){
+  var onNew = function(data){
+    data = $.parseJSON(data);
+    console.log(data);
+    if(data.id != undefined){
+      resetUpdateTimer();
+      resetRefreshTimer();
+      update(data);
+      $('#request_position').html("\t--");
+    }
+  };
+
   $.ajax({
     type: "GET",
     url: 'ajax/new',
     success: onNew
   });
-}
-
-function onNew(data){
-  data = $.parseJSON(data);
-  console.log(data);
-  if(data.id != undefined){
-    resetUpdateTimer();
-    resetRefreshTimer();
-    update(data);
-    $('#request_position').html("\t--");
-  }
 }
 
 /**
