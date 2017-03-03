@@ -1,4 +1,4 @@
-README v0.1 / 03 MARCH 2017
+README v0.2 / 04 MARCH 2017
 
 # Starter project for Node.js applications
 
@@ -17,8 +17,8 @@ Make sure you have [node.js](https://nodejs.org/en/) installed before proceeding
    1. Clone this repository on the development machine
    2. Open a terminal window at this directory path
    3. Type in the following command `npm install`
-   4. To start the server in development environment, type in the following command `npm dev-start` (under development)
-   5. Use the following command to build static files for serving: `npm run build`
+   4. Use the following command to build static files for serving: `npm run build`
+   5. To start the server in development environment, type in the following command `npm run dev-start`
    6. Use the one of the following commands to start the server:
       * `npm run nodemon-start`: Start a server using [nodemon](https://nodemon.io/)
       * `npm start`: Start a server normally
@@ -35,9 +35,13 @@ The current build process is outlined below:
 
   **CAUTION:** Changes made to the *dist* directory will be overwritten on the next build, please ensure changes are made in the *assets* directory.
 
-##Development (Under Development)
+##Development
 
-In order to run a development server, type in `npm dev-start` in the terminal. This starts a server with browser-sync. Gulp also watches the CSS and JS files in the assets directory for changes and automatically refreshes the browser.
+In order to run a development server, type in `npm run dev-start` in the terminal. This starts a server with browser-sync. Gulp also watches the CSS and JS files in the assets directory for changes. When the watched static files are changed, they are built again and then the browser is refreshed.
+
+Since the development server runs using `nodemon`, any changes to server-side application files also restarts the server.
+
+Browser-Sync uses a proxy at port 3500 and the server runs on port 3000.
 
 ## Credits
 
