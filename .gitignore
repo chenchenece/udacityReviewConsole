@@ -52,4 +52,4 @@ Temporary Items
 # =========================
 # Project Build Files
 # =========================
-/src/dist/
+dist/
