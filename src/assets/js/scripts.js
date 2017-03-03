@@ -71,7 +71,7 @@ function updateSubmissionRequest(){
       if(data.status == 'fulfilled'){
         $("#notification_bar").slideDown('fast');
       }
-      requestNew();
+      newSubmissionRequest();
     }  else {
       resetUpdateTimer();
       positionOfSubmissionRequest();
@@ -102,7 +102,7 @@ function refreshSubmissionRequest(){
       if(data.status == 'fulfilled'){
         $("#notification_bar").slideDown('fast');
       }
-      requestNew();
+      newSubmissionRequest();
     } else {
       resetRefreshTimer();
       resetUpdateTimer();
