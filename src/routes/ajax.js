@@ -54,7 +54,7 @@ function getRequest(requestId, callback){
 function getNew(callback){
   var data = '{"projects":[{"project_id":52,"language":"en-us"}]}';
 
-  var postHeaders = header;
+  var postHeaders = JSON.parse(JSON.stringify(header));
   postHeaders['Content-Type'] = 'application/json';
   postHeaders['Content-Length'] = Buffer.byteLength(data);
 
@@ -86,6 +86,8 @@ function refreshProject(requestId, callback){
 }
 
 function httpRequest(options, callback){
+
+
   var onResponse = function(error, response, body){
     if(error) console.log(error);
     callback(body);
