@@ -48,3 +48,8 @@ Temporary Items
 
 # Node packages
 /node_modules
+
+# =========================
+# Project Build Files
+# =========================
+/src/dist/
