@@ -30,7 +30,7 @@ You can install Gulp globally using the following command: `npm install -g gulp`
 
 The current build process is outlined below:
   1. The contents of the *dist* folder are deleted.
-  2. The CSS files and JS files in the *assets* directory are minified and copied to the *dist* directory.
+  2. The CSS files and JS files in the *assets* directory are minified and copied to the *dist* directory. [Source Maps](http://blog.teamtreehouse.com/introduction-source-maps) are also created during this step.
   3. The images are copied form the *assets* directory to the *dist* directory.
 
   **CAUTION:** Changes made to the *dist* directory will be overwritten on the next build, please ensure changes are made in the *assets* directory.
