@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-start": "node_modules/.bin/gulp dev-serve",
     "nodemon-start": "node_modules/.bin/nodemon",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "build": "node_modules/.bin/gulp build"
   },
   "keywords": [
     "starter"
