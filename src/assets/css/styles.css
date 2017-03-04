@@ -27,3 +27,19 @@
 #notification_bar i{
   cursor: pointer;
 }
+
+.btn-floating.progress-bar-container {
+
+}
+
+.btn-floating.progress-bar-container > .progress-bar{
+  height: inherit;
+  width: inherit;
+}
+
+.btn-floating.progress-bar-container > .progress-bar > div{
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  margin: auto;
+}

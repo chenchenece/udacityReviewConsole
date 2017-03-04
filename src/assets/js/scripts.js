@@ -3,8 +3,11 @@
  */
 var refreshInterval = 10*60*1000; // 10 minutes in milliseconds
 var updateInterval = 3*60*1000; // 3 minutes in milliseconds
+var progressInterval = 100;
 var updateTimer;
 var refreshTimer;
+var progressTimer;
+var progress = 0;
 //################
 
 /*################
@@ -28,10 +31,12 @@ $(function(){
 
 function setUpdateTimer(){
   updateTimer = setInterval(updateSubmissionRequest, updateInterval);
+  setProgressTimer();
 }
 
 function removeUpdateTimer(){
   clearInterval(updateTimer);
+  removeProgressTimer();
 }
 
 function resetUpdateTimer(){
@@ -56,6 +61,28 @@ function resetUpdateTimer(){
    removeRefreshTimer();
    setRefreshTimer();
  }
+
+ /**
+  *Timer functions to automatically update progress bar
+  */
+
+  function setProgressTimer(){
+    progressTimer = setInterval(function(){
+      progress+= progressInterval;
+      updateProgress(progress*100/updateInterval);
+    }, progressInterval);
+  }
+
+  function removeProgressTimer(){
+    clearInterval(progressTimer);
+    progress= 0;
+    updateProgress(0);
+  }
+
+  function resetProgressTimer(){
+    removeProgressTimer();
+    setProgressTimer();
+  }
 
 /*
  *Get an update on the submission request
@@ -180,4 +207,32 @@ function newSubmissionRequest(){
    lastUpdated = lastUpdated.toLocaleTimeString('en-US', options);
 
    $('#last_updated').html("\t"+ lastUpdated);
+ }
+
+/**
+  *This function upates the progress bar with a background-image
+  *formed using linear-gradients by using a given percentage
+  */
+ function updateProgress(percent){
+   if(percent < 0 || percent > 100) return;
+
+   var progress = $(".btn-floating.progress-bar-container");
+   var transparent = "rgba(255, 255, 255, 0)";
+   var color = progress.css("background-color");
+   var accent = progress.css("color");
+   var background;
+
+   if(percent <= 50){
+     var degree = 90 + (3.6*(percent));
+     background =
+       "linear-gradient(90deg,"+ color+ " 50%,"+ transparent+ " 50%,"+ transparent+ "),"+
+       "linear-gradient("+ degree+ "deg,"+ accent+" 50%,"+ color+" 50%,"+ color+ ")";
+   } else {
+     var degree = -90 + (3.6*(percent-50));
+     background =
+       "linear-gradient("+ degree+ "deg,"+ accent+ " 50%,"+ transparent+ " 50%,"+ transparent+ "),"+
+       "linear-gradient(270deg,"+ accent+" 50%,"+ color+" 50%,"+ color+ ")";
+   }
+
+   progress.css("background-image", background);
  }
