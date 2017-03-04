@@ -89,6 +89,7 @@ function resetUpdateTimer(){
  */
 function updateSubmissionRequest(){
   console.log("Updating Submission Request.");
+  rotate($("#request_refresh i"));
 
   var onUpdateRequest = function(data){
     data = $.parseJSON(data);
@@ -120,6 +121,7 @@ function updateSubmissionRequest(){
  */
 function refreshSubmissionRequest(){
   console.log("Refreshing Submission Request.");
+  rotate($("#request_refresh i"));
   var id = $("#request_id").val();
 
   var onRefreshRequest = function(data){
@@ -235,4 +237,11 @@ function newSubmissionRequest(){
    }
 
    progress.css("background-image", background);
+ }
+
+ function rotate(obj){
+   obj.addClass("rotate rotate_transition");
+   setTimeout(function(){
+     obj.removeClass("rotate rotate_transition");
+   }, 1000);
  }

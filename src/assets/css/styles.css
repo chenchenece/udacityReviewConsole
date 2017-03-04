@@ -1,4 +1,4 @@
-#new_request{
+#request_refresh{
   position: fixed;
   margin: 16px;
   bottom: 0;
@@ -42,4 +42,18 @@
   height: 52px;
   border-radius: 50%;
   margin: auto;
+}
+
+.rotate {
+  -webkit-transform: rotate(720deg);  /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(720deg);  /* Firefox 3.5-15 */
+      -ms-transform: rotate(720deg);  /* IE 9 */
+        -o-transform: rotate(720deg);  /* Opera 10.50-12.00 */
+         transform: rotate(720deg);  /* Firefox 16+, IE 10+, Opera 12.50+ */
+}
+.rotate_transition {
+  -webkit-transition: all 1s ease-in-out;  /* Chrome 1-25, Safari 3.2+ */
+     -moz-transition: all 1s ease-in-out;  /* Firefox 4-15 */
+       -o-transition: all 1s ease-in-out;  /* Opera 10.50–12.00 */
+          transition: all 1s ease-in-out;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.50+ */
 }
