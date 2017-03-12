@@ -1,8 +1,7 @@
 /*################
  *GLOBAL VARIABLES
  */
-var refreshInterval = 10*60*1000; // 10 minutes in milliseconds
-var updateInterval = 3*60*1000; // 3 minutes in milliseconds
+var refreshInterval = 1*60*1000; // 10 minutes in milliseconds
 var progressInterval = 100;
 var updateTimer;
 var refreshTimer;
@@ -20,7 +19,6 @@ $(function(){
   $("#notification_bar i").on("click", function(){
     $("#notification_bar").slideUp('fast');
   })
-  setUpdateTimer();
   setRefreshTimer();
 });
 
@@ -29,32 +27,14 @@ $(function(){
  *Timer functions to automatically update submission requests
  */
 
-function setUpdateTimer(){
-  updateTimer = setInterval(updateSubmissionRequest, updateInterval);
-  setProgressTimer();
-}
-
-function removeUpdateTimer(){
-  clearInterval(updateTimer);
-  removeProgressTimer();
-}
-
-function resetUpdateTimer(){
-  removeUpdateTimer();
-  setUpdateTimer();
-}
-
-//##################
-/**
- *Timer functions to automatically update submission requests
- */
-
  function setRefreshTimer(){
    refreshTimer = setInterval(refreshSubmissionRequest, refreshInterval);
+   setProgressTimer();
  }
 
  function removeRefreshTimer(){
    clearInterval(refreshTimer);
+   removeProgressTimer();
  }
 
  function resetRefreshTimer(){
@@ -69,7 +49,7 @@ function resetUpdateTimer(){
   function setProgressTimer(){
     progressTimer = setInterval(function(){
       progress+= progressInterval;
-      updateProgress(progress*100/updateInterval);
+      updateProgress(progress*100/refreshInterval);
     }, progressInterval);
   }
 
@@ -78,43 +58,6 @@ function resetUpdateTimer(){
     progress= 0;
     updateProgress(0);
   }
-
-  function resetProgressTimer(){
-    removeProgressTimer();
-    setProgressTimer();
-  }
-
-/*
- *Get an update on the submission request
- */
-function updateSubmissionRequest(){
-  console.log("Updating Submission Request.");
-  rotate($("#request_refresh i"));
-
-  var onUpdateRequest = function(data){
-    data = $.parseJSON(data);
-    data.updated_at = new Date();
-    update(data);
-    if(data.status != 'available'){
-      if(data.status == 'fulfilled'){
-        $("#notification_bar").slideDown('fast');
-      }
-      newSubmissionRequest();
-    }  else {
-      resetUpdateTimer();
-      positionOfSubmissionRequest();
-    }
-  };
-
-  var id = $("#request_id").val();
-  $.ajax({
-    type: "GET",
-    url: 'ajax/request',
-    data: {requestId: id},
-    success: onUpdateRequest,
-  });
-}
-
 
 /*
  *Refresh the submission request so that it does not close
@@ -134,7 +77,6 @@ function refreshSubmissionRequest(){
       newSubmissionRequest();
     } else {
       resetRefreshTimer();
-      resetUpdateTimer();
       positionOfSubmissionRequest();
     }
   };
@@ -181,6 +123,7 @@ function newSubmissionRequest(){
       resetRefreshTimer();
       update(data);
       $('#request_position').html("\t--");
+      positionOfSubmissionRequest();
     }
   };
 
